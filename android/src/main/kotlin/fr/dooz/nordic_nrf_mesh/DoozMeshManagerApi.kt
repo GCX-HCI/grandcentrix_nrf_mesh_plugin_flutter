@@ -536,13 +536,13 @@ class DoozMeshManagerApi(context: Context, binaryMessenger: BinaryMessenger) : S
                 val keyIndex = call.argument<Int>("keyIndex")!!
                 val modelId = call.argument<Int>("modelId")!!
                 val companyIdentifier = call.argument<Int>("companyIdentifier")!!
-                val opCode = call.argument<Int>("opCode")!!
+                val opCode = call.argument<String>("opCode")!!
                 val parameters = call.argument<String>("parameters")!!
                 val meshMessage: MeshMessage = VendorModelMessageAcked(
                     mMeshManagerApi.meshNetwork!!.getAppKey(keyIndex),
                     modelId,
                     companyIdentifier,
-                    opCode,
+                    opCode.toInt(16),
                     parameters.toByteArray())
                 mMeshManagerApi.createMeshPdu(address, meshMessage)
                 result.success(null)

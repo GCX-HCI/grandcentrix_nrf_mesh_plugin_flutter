@@ -1201,7 +1201,7 @@ class MeshManagerApi {
     int level,
     int modelId,
     int companyIdentifier,
-    int opCode,
+    String opCode,
     String parameters, {
     int keyIndex = 0,
   }) async {
