@@ -543,7 +543,7 @@ class DoozMeshManagerApi(context: Context, binaryMessenger: BinaryMessenger) : S
                     modelId,
                     companyIdentifier,
                     opCode.toInt(16),
-                    parameters.toByteArray())
+                    toByteArray(parameters))
                 mMeshManagerApi.createMeshPdu(address, meshMessage)
                 result.success(null)
             }
@@ -551,6 +551,18 @@ class DoozMeshManagerApi(context: Context, binaryMessenger: BinaryMessenger) : S
                 result.notImplemented()
             }
         }
+    }
+
+    private fun toByteArray(hexString: String): ByteArray {
+        val len: Int = hexString.length
+        val bytes = ByteArray(len / 2)
+        var i = 0
+        while (i < len) {
+            bytes[i / 2] = ((Character.digit(hexString[i], 16) shl 4)
+                    + Character.digit(hexString[i + 1], 16)).toByte()
+            i += 2
+        }
+        return bytes
     }
 }
 
