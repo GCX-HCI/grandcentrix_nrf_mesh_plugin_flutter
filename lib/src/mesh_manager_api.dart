@@ -1198,7 +1198,6 @@ class MeshManagerApi {
   /// Will send a GenericLevelSet message to the given [address].
   Future<GenericOnOffStatusData> sendVendorModelMessage(
     int address,
-    int level,
     int modelId,
     int companyIdentifier,
     String opCode,
