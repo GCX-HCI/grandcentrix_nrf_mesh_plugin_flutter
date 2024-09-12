@@ -531,6 +531,22 @@ class DoozMeshManagerApi(context: Context, binaryMessenger: BinaryMessenger) : S
                     result.error("102", e.message, "an error occured while checking service data")
                 }
             }
+            "sendVendorModelMessage" -> {
+                val address = call.argument<Int>("address")!!
+                val keyIndex = call.argument<Int>("keyIndex")!!
+                val modelId = call.argument<Int>("modelId")!!
+                val companyIdentifier = call.argument<Int>("companyIdentifier")!!
+                val opCode = call.argument<Int>("opCode")!!
+                val parameters = call.argument<String>("parameters")!!
+                val meshMessage: MeshMessage = VendorModelMessageAcked(
+                    mMeshManagerApi.meshNetwork!!.getAppKey(keyIndex),
+                    modelId,
+                    companyIdentifier,
+                    opCode,
+                    parameters.toByteArray())
+                mMeshManagerApi.createMeshPdu(address, meshMessage)
+                result.success(null)
+            }
             else -> {
                 result.notImplemented()
             }

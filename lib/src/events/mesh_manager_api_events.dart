@@ -12,7 +12,8 @@ class MeshManagerApiEvent {
   int get hashCode => value.hashCode;
 
   @override
-  bool operator ==(Object other) => other is MeshManagerApiEvent && other.value == value;
+  bool operator ==(Object other) =>
+      other is MeshManagerApiEvent && other.value == value;
 
   @override
   String toString() => value;
@@ -25,31 +26,54 @@ class MeshManagerApiEvent {
   static const importFailed = MeshManagerApiEvent._('onNetworkImportFailed');
 
   static const meshPduCreated = MeshManagerApiEvent._('onMeshPduCreated');
-  static const sendProvisioningPdu = MeshManagerApiEvent._('sendProvisioningPdu');
+  static const sendProvisioningPdu =
+      MeshManagerApiEvent._('sendProvisioningPdu');
 
-  static const provisioningStateChanged = MeshManagerApiEvent._('onProvisioningStateChanged');
-  static const provisioningFailed = MeshManagerApiEvent._('onProvisioningFailed');
-  static const provisioningCompleted = MeshManagerApiEvent._('onProvisioningCompleted');
+  static const provisioningStateChanged =
+      MeshManagerApiEvent._('onProvisioningStateChanged');
+  static const provisioningFailed =
+      MeshManagerApiEvent._('onProvisioningFailed');
+  static const provisioningCompleted =
+      MeshManagerApiEvent._('onProvisioningCompleted');
 
-  static const configCompositionDataStatus = MeshManagerApiEvent._('onConfigCompositionDataStatus');
-  static const configAppKeyStatus = MeshManagerApiEvent._('onConfigAppKeyStatus');
-  static const genericLevelStatus = MeshManagerApiEvent._('onGenericLevelStatus');
-  static const genericOnOffStatus = MeshManagerApiEvent._('onGenericOnOffStatus');
-  static const v2MagicLevelSetStatus = MeshManagerApiEvent._('onMagicLevelSetStatus');
-  static const v2MagicLevelGetStatus = MeshManagerApiEvent._('onMagicLevelGetStatus');
-  static const doozScenarioStatus = MeshManagerApiEvent._('onDoozScenarioStatus');
+  static const configCompositionDataStatus =
+      MeshManagerApiEvent._('onConfigCompositionDataStatus');
+  static const configAppKeyStatus =
+      MeshManagerApiEvent._('onConfigAppKeyStatus');
+  static const genericLevelStatus =
+      MeshManagerApiEvent._('onGenericLevelStatus');
+  static const genericOnOffStatus =
+      MeshManagerApiEvent._('onGenericOnOffStatus');
+  static const v2MagicLevelSetStatus =
+      MeshManagerApiEvent._('onMagicLevelSetStatus');
+  static const v2MagicLevelGetStatus =
+      MeshManagerApiEvent._('onMagicLevelGetStatus');
+  static const doozScenarioStatus =
+      MeshManagerApiEvent._('onDoozScenarioStatus');
   static const doozEpochStatus = MeshManagerApiEvent._('onDoozEpochStatus');
 
-  static const lightLightnessStatus = MeshManagerApiEvent._('onLightLightnessStatus');
+  static const lightLightnessStatus =
+      MeshManagerApiEvent._('onLightLightnessStatus');
   static const lightCtlStatus = MeshManagerApiEvent._('onLightCtlStatus');
   static const lightHslStatus = MeshManagerApiEvent._('onLightHslStatus');
 
-  static const configModelAppStatus = MeshManagerApiEvent._('onConfigModelAppStatus');
-  static const configModelSubscriptionStatus = MeshManagerApiEvent._('onConfigModelSubscriptionStatus');
-  static const configModelPublicationStatus = MeshManagerApiEvent._('onConfigModelPublicationStatus');
-  static const configNodeResetStatus = MeshManagerApiEvent._('onConfigNodeResetStatus');
-  static const configNetworkTransmitStatus = MeshManagerApiEvent._('onConfigNetworkTransmitStatus');
-  static const configDefaultTtlStatus = MeshManagerApiEvent._('onConfigDefaultTtlStatus');
-  static const configKeyRefreshPhaseStatus = MeshManagerApiEvent._('onConfigKeyRefreshPhaseStatus');
-  static const configBeaconStatus = MeshManagerApiEvent._('onConfigBeaconStatus');
+  static const configModelAppStatus =
+      MeshManagerApiEvent._('onConfigModelAppStatus');
+  static const configModelSubscriptionStatus =
+      MeshManagerApiEvent._('onConfigModelSubscriptionStatus');
+  static const configModelPublicationStatus =
+      MeshManagerApiEvent._('onConfigModelPublicationStatus');
+  static const configNodeResetStatus =
+      MeshManagerApiEvent._('onConfigNodeResetStatus');
+  static const configNetworkTransmitStatus =
+      MeshManagerApiEvent._('onConfigNetworkTransmitStatus');
+  static const configDefaultTtlStatus =
+      MeshManagerApiEvent._('onConfigDefaultTtlStatus');
+  static const configKeyRefreshPhaseStatus =
+      MeshManagerApiEvent._('onConfigKeyRefreshPhaseStatus');
+  static const configBeaconStatus =
+      MeshManagerApiEvent._('onConfigBeaconStatus');
+
+  static const vendorModelMessageStatus =
+      MeshManagerApiEvent._('onVendorModelMessageStatus');
 }
