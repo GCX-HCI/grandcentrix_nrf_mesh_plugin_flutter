@@ -276,6 +276,21 @@ class DoozMeshStatusCallbacks(var eventSink: EventChannel.EventSink?): MeshStatu
                     ))
                 }
             }
+            is VendorModelMessageStatus -> {
+                Log.d(tag, "received a VendorModelMessageStatus")
+                Handler(Looper.getMainLooper()).post {
+                    eventSink?.success(mapOf(
+                        "eventName" to "onVendorModelMessageStatus",
+                        "source" to meshMessage.src,
+                        "destination" to meshMessage.dst,
+                        "opCode" to meshMessage.opCode,
+                        "accessPayload" to meshMessage.accessPayload,
+                        "modelId" to meshMessage.modelIdentifier,
+                        "companyId" to meshMessage.companyIdentifier,
+                        "parameters" to meshMessage.parameters
+                    ))
+                }
+            }
             else -> {
                 Log.d(tag, "Unknown message received :" + meshMessage.javaClass.toString())
             }

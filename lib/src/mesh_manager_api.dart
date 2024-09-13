@@ -79,7 +79,7 @@ class MeshManagerApi {
   late final _onConfigKeyRefreshPhaseStatusController =
       StreamController<ConfigKeyRefreshPhaseStatus>.broadcast();
   late final _onVendorModelMessageStatusController =
-      StreamController<GenericOnOffStatusData>.broadcast();
+      StreamController<Map<String, dynamic>>.broadcast();
   // stream subs
   late StreamSubscription<MeshNetwork> _onNetworkLoadedSubscription;
   late StreamSubscription<MeshNetwork> _onNetworkImportedSubscription;
@@ -131,7 +131,7 @@ class MeshManagerApi {
   late StreamSubscription<LightHslStatusData> _onLightHslStatusSubscription;
   late StreamSubscription<ConfigKeyRefreshPhaseStatus>
       _onConfigKeyRefreshPhaseStatusSubscription;
-  late StreamSubscription<GenericOnOffStatusData>
+  late StreamSubscription<Map<String, dynamic>>
       _onVendorModelMessageStatusSubscription;
 
   MeshNetwork? _lastMeshNetwork;
@@ -302,7 +302,6 @@ class MeshManagerApi {
         .where((event) =>
             event['eventName'] ==
             MeshManagerApiEvent.vendorModelMessageStatus.value)
-        .map((event) => GenericOnOffStatusData.fromJson(event))
         .listen(_onVendorModelMessageStatusController.add);
   }
   Stream<ConfigBeaconStatus> get onConfigBeaconStatus =>
@@ -388,7 +387,7 @@ class MeshManagerApi {
   Stream<ConfigKeyRefreshPhaseStatus> get onConfigKeyRefreshPhaseStatus =>
       _onConfigKeyRefreshPhaseStatusController.stream;
 
-  Stream<GenericOnOffStatusData> get onVendorModelMessageStatus =>
+  Stream<Map<String, dynamic>> get onVendorModelMessageStatus =>
       _onVendorModelMessageStatusController.stream;
 
   /// Checks if the node is advertising with Node Identity
@@ -1195,24 +1194,19 @@ class MeshManagerApi {
         {'address': await node.unicastAddress, 'sequenceNumber': seqNum},
       );
 
-  /// Will send a GenericLevelSet message to the given [address].
-  Future<GenericOnOffStatusData> sendVendorModelMessage(
+  /// Will send a Vendor Model message to the given [address].
+  Future<Map<String, dynamic>> sendVendorModelMessage(
     int address,
     int modelId,
-    int companyIdentifier,
     String opCode,
     String parameters, {
     int keyIndex = 0,
   }) async {
-    final status = _onVendorModelMessageStatusController.stream.firstWhere(
-      (element) => element.source == address,
-      orElse: () => const GenericOnOffStatusData(-1, false, false, -1, -1),
-    );
+    final status = _onVendorModelMessageStatusController.stream.first;
     await _methodChannel.invokeMethod('sendVendorModelMessage', {
       'address': address,
       'keyIndex': keyIndex,
       'modelId': modelId,
-      'companyIdentifier': companyIdentifier,
       'opCode': opCode,
       'parameters': parameters,
     });
