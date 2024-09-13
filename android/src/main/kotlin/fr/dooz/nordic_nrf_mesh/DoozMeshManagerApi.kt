@@ -11,6 +11,8 @@ import io.flutter.plugin.common.MethodChannel
 import no.nordicsemi.android.mesh.MeshManagerApi
 import no.nordicsemi.android.mesh.MeshNetwork
 import no.nordicsemi.android.mesh.transport.*
+import java.nio.ByteBuffer
+import java.nio.ByteOrder
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -535,13 +537,24 @@ class DoozMeshManagerApi(context: Context, binaryMessenger: BinaryMessenger) : S
                 val address = call.argument<Int>("address")!!
                 val keyIndex = call.argument<Int>("keyIndex")!!
                 val modelId = call.argument<Int>("modelId")!!
-                val companyIdentifier = call.argument<Int>("companyIdentifier")!!
                 val opCode = call.argument<String>("opCode")!!
                 val parameters = call.argument<String>("parameters")!!
-                val meshMessage: MeshMessage = VendorModelMessageAcked(
+
+                val buffer = ByteBuffer.allocate(4).order(ByteOrder.BIG_ENDIAN);
+                buffer.putInt(modelId);
+                val companyIdentifier = buffer.getShort(0);
+
+                Log.d("gcx", "sendVendorModelMessage")
+                Log.d("gcx", "Address: $address")
+                Log.d("gcx", "Model ID: $modelId")
+                Log.d("gcx", "OP Code: $opCode")
+                Log.d("gcx", "Parameters: $parameters")
+                Log.d("gcx", "Company ID: $companyIdentifier")
+
+                val meshMessage: MeshMessage = VendorModelMessageUnacked(
                     mMeshManagerApi.meshNetwork!!.getAppKey(keyIndex),
                     modelId,
-                    companyIdentifier,
+                    companyIdentifier.toInt(),
                     opCode.toInt(16),
                     toByteArray(parameters))
                 mMeshManagerApi.createMeshPdu(address, meshMessage)
